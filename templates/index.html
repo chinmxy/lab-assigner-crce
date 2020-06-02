@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home | CRCE Lab Assigner</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #999999;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Lab Assigner</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/timetable">Timetable</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/history">History <span class="sr-only">(current)</span></a>
+                </li>
+
+
+        </div>
+    </nav>
+    </br>
+    <div class="container-fluid" style="width: 60%;">
+        <div class="jumbotron">
+            <h1 class="display-4">CRCE Lab Assigner</h1>
+            <p class="lead">Enter the details below and let us assign the labs for you.</p>
+            <hr class="my-4">
+            <br>
+            <form method="POST">
+
+                <div class="form-group">
+                    <label for="exampleInputCompany">Enter company name: </label>
+                    <input type="text" name="company-name" class="form-control" id="exampleInputCompany"
+                        aria-describedby="emailHelp">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputCompany">Enter date when company is visiting: </label>
+                    <input class="form-control" name="date-input" type="date" id="exampleDateInput">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Select occupancy:</label>
+                    <input type="number" class="form-control" name="occupancy" id="exampleInputPassword1" max='250'>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Select time slots:</label>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" defaultValue="unchecked" name="cb"
+                                    value="T845_945" id="invalidCheck2">8:45am -
+                                9:45am
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T945_1045"
+                                    id="invalidCheck2">9:45am -
+                                10:45am
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T11_12"
+                                    id="invalidCheck2">11:00am -
+                                12:00am
+                            </div>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T12_1"
+                                    id="invalidCheck2">12:00pm -
+                                1:00pm
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T130_230"
+                                    id="invalidCheck2">1:30pm -
+                                2:30pm
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T230_330"
+                                    id="invalidCheck2">2:30pm -
+                                3:30pm
+                            </div>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T330_430"
+                                    id="invalidCheck2">3:30pm -
+                                4:30pm
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input" type="checkbox" name="cb" value="T430_530"
+                                    id="invalidCheck2">4:30pm -
+                                5:30pm
+                            </div>
+                            <div class="col-sm">
+                                <!-- <input class="form-check-input" type="checkbox" value="T1630_T1730"
+                                id="invalidCheck2">4:30pm -
+                            5:30pm -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Add softwares
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+
+
+
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="sw" value="Java"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Java
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="sw" value="C"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            C
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="sw" value="C++"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            C++
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="sw" value="C#"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            C#
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="sw" value="Python"
+                                            id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Python
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </br>
+                <div class="text-center">
+                    <input type="submit" style="padding:0px 20px; margin-right:20px;" class="btn btn-primary">
+
+                    <button type="button" style="padding:0px 20px; margin-left:20px;"
+                        class="btn btn-danger">Reset</button>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+    </div>
+
+
+    <!--SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>

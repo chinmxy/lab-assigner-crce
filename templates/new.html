@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Test</title>
+	</head>
+	<body>
+		<a onclick="btnClick(this)" value="100">Rand IND</a>
+		<script>
+			function btnClick(btnObj) {
+				var x = btnObj.rel;
+				console.log(x);
+
+				var data = "{{data}}";
+				console.log(data);
+
+				alert("Do you really want to select this option?");
+			}
+		</script>
+	</body>
+</html>

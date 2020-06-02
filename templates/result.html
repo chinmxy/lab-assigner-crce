@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home | CRCE Lab Assigner</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+        <style>
+            body {
+                background-color: #999999;
+            }
+        </style>
+</head>
+
+<body>
+    </br>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1 class="display-4">Lab Combinations</h1>
+            <p class="lead">Here are the available labs as per your needs.</p>
+            <!-- <p>{{data}}</p> -->
+            <hr class="my-4">
+            <div>
+                <!-- <h4 style = "color:rgb(18, 202, 8)">Suggested combination:</h4> -->
+                <div class="card">
+                    <div class="card-header">
+                     
+                        <h5> Option #1 
+                     <span style="text-align: right;" class="badge badge-success">SUGGESTED</span></h5>
+                    </div>
+                    <div class="card-body">
+                        {%set list1 = data['displaylabs'][0].items() | list%}
+                        {% set dict1 = list1[0] | list %}
+                      <h5 class="card-title" >{{dict1[0]}}</h5>
+                      <p class="card-text">{{dict1[1]['ans_str']}}</p>
+                      <a href="javascript:btnClick({{dict1}})" id="0" class="btn btn-primary" >Select</a>
+                    </div>
+                  </div>
+            </div>
+        </br>
+
+        {% set len = data['displaylabs'] | length %}
+            <div>
+                <a class="btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    View {{len-1}} other options
+                </a>
+            </div>
+
+              <!--COLLAPSE-->
+          <!-- <div class="container-fluid" style="background-color:#999999;"> -->
+              <div class="collapse" id="collapseExample" >
+              
+                
+                {% for i in range(1,len) %}
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-header">
+                     
+                        <h5> Option #{{i+1}}
+                     
+                    </div>
+                    <div class="card-body">
+                        {% set list1 = data['displaylabs'][i].items() | list %}
+                        {% set dict1 = list1[0]|list | list %}
+                      <h5 class="card-title">{{dict1[0]}}</h5>
+                      <p class="card-text">{{dict1[1]['ans_str']}}</p>
+                      <a href="javascript:btnClick({{dict1}})" rel="{{i}}" class="btn btn-primary">Select</a>
+                    </div>
+                  </div>
+                </br>
+                
+                  {% endfor %}
+          </div> 
+
+          
+        
+          
+
+    </div><!--Jumbotron ends-->
+        
+
+    
+
+
+
+
+    <!--SCRIPTS-->
+
+    <script>
+        var data_real = {{data | safe}};
+        
+        
+        function btnClick(dict1){
+            console.log(dict1);
+            // console.log(index);
+
+            console.log(data_real);
+            
+
+            if(confirm("Do you really want to select this option?\n " +dict1[0] )){
+                $.ajax({
+                url: "{{url_for('update_db')}}",
+                type: "POST",
+                data: JSON.stringify([dict1,data_real]),
+                dataType: 'json'
+            }).done(function (data) {
+                alert(data);
+                // window.location.href();
+            });
+            }
+            
+            
+        }
+    </script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+
+
+
+
+    <script src="https://kit.fontawesome.com/524adbb4d6.js" crossorigin="anonymous"></script>
+
+    
+</body>
+
+</html>
