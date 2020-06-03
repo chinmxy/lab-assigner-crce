@@ -106,12 +106,12 @@ def db_update(current_option, full_data):
         for i, j in current_option[1]['r_dict'].items():
             lnt = i.split("|")
             cursor.execute(
-                'insert into lab_allocations values ("1","'+lnt[0]+'","'+j+'","'+lnt[1]+'")')
+                'insert into lab_allocations values ("1","'+lnt[0]+'","'+j+'","'+lnt[2]+'")')
             conn.commit()
         for i, j in current_option[1]['rescheduled'].items():
             lnt = i.split("|")
             cursor.execute(
-                'insert into lab_allocations values ("1","'+lnt[0]+'","'+j+'","'+lnt[1]+'")')
+                'insert into lab_allocations values ("1","'+lnt[0]+'","'+j+'","'+lnt[2]+'")')
             conn.commit()
             # return ("Updated successfully!")
         op_msg = "Updated successfully!"
@@ -123,12 +123,12 @@ def db_update(current_option, full_data):
         for i, j in current_option[1]['r_dict'].items():
             lnt = i.split("|")
             cursor.execute('insert into lab_allocations values ("' +
-                           str(current_id_no)+'","'+lnt[0]+'","'+j+'","'+lnt[1]+'")')
+                           str(current_id_no)+'","'+lnt[0]+'","'+j+'","'+lnt[2]+'")')
             conn.commit()
         for i, j in current_option[1]['rescheduled'].items():
             lnt = i.split("|")
             cursor.execute('insert into lab_allocations values ("' +
-                           str(current_id_no)+'","'+lnt[0]+'","'+j+'","'+lnt[1]+'")')
+                           str(current_id_no)+'","'+lnt[0]+'","'+j+'","'+lnt[2]+'")')
             conn.commit()
         op_msg = "Updated successfully!"
     return op_msg
