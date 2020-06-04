@@ -143,7 +143,8 @@ def displaytest(data):
     sql += str(data)
     cursor.execute(sql)
     data = cursor.fetchall()
-
+    print("data: ", data)
+    '''
     retstring = "<table><tr><th>Lab No.</th><th>Assigned Lab</th><th>Time Slot</th></tr>"
     sample = "<tr><td>d1</td><td>d2</td><td>d3</td></tr>"
 
@@ -155,7 +156,25 @@ def displaytest(data):
         retstring += sample
         sample = "<tr><td>d1</td><td>d2</td><td>d3</td></tr>"
     retstring += "</table>"
-    return (retstring)
+    '''
+    string_list = []
+
+    if data == []:
+        retstring = "The labs were already free, so no labs were rescheduled."
+        string_list.append(retstring)
+    else:
+        for i in data:
+            if i[2] != 'X':
+                retstring = "Lab "+i[1] + \
+                    " was rescheduled to "+i[2]+" at "+i[3]+"."
+                string_list.append(retstring)
+            elif i[2] == 'X':
+                retstring = "Lab "+i[1] + \
+                    " was cancelled at "+time_slots[i[3]]+"."
+                string_list.append(retstring)
+
+    # print(string_list)
+    return string_list
 
 
 def select_best(av_labs, day, time, acc):

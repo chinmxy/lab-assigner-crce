@@ -140,9 +140,15 @@
                 data: JSON.stringify(getIdFromRow),
                 dataType: 'json',
             }).done(function (data) {
+                var final_op_string = "";
+                var i = 0;
+                for(i=0; i<data.length; i++) {
+                    final_op_string += data[i];
+                    final_op_string += "</br>"
+                }
 
                 var x = document.getElementById('chinu1');
-                x.innerHTML = data;
+                x.innerHTML = final_op_string;
             });
 
         })
