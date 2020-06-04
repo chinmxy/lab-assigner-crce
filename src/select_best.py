@@ -1,7 +1,8 @@
 import mysql.connector
 from itertools import combinations
 
-queries = __import__("queries")
+# queries = __import__("queries")
+from . import queries
 
 time_slots = {'T845_945': '8:45 - 9:45', 'T945_1045': '9:45 - 10:45', 'T11_12': '11:00 - 12:00', 'T12_1': '12:00 - 13:00',
               'T130_230': '13:30 - 14:30', 'T230_330': '14:30 - 15:30', 'T330_430': '15:30 - 16:30', 'T430_530': '16:30 - 17:30'}
@@ -9,7 +10,6 @@ time_slots = {'T845_945': '8:45 - 9:45', 'T945_1045': '9:45 - 10:45', 'T11_12': 
 
 def execute_query(cursor, str_q):
     cursor.execute(str_q)
-
 
 
 def check_reschedulable(cursor, day, time, acc, labno, software, combn, reschedule_dict, pracs):
@@ -77,9 +77,6 @@ def genKey(comb):
             key += " | "
 
     return key
-
-
-# genKey(['802', '803', '804', '805'])
 
 
 def reschedule_labs(ip):
@@ -198,10 +195,8 @@ def bestOption2(mainList):
 
     bestCanOptions.sort(key=sortRescheduled)
     remainingOptions.sort(key=sortRescheduled)
-    
+
     sortedOptionList = bestCanOptions + remainingOptions
 
-
     return sortedOptionList
-
 

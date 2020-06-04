@@ -2,12 +2,20 @@ import calendar
 from datetime import date
 from flask import Flask, request, render_template, jsonify, json
 
-allotment_options = __import__("allotment_options")
-select_best = __import__("select_best")
-queries = __import__("queries")
-misc_funcs = __import__("misc_funcs")
-display_ob = __import__("display")
-demo = __import__("demo")
+# allotment_options = __import__("allotment_options")
+# select_best = __import__("select_best")
+# queries = __import__("queries")
+# misc_funcs = __import__("misc_funcs")
+
+# display_ob = __import__("display")
+# demo = __import__("demo")
+
+from src import queries
+from src import allotment_options
+from src import demo
+from src import display as display_ob
+from src import misc_funcs
+from src import select_best
 
 app = Flask(__name__)
 

@@ -1,8 +1,12 @@
 import mysql.connector
 
-query = __import__("queries")
-func = __import__("misc_funcs")
-select_best = __import__("select_best")
+from . import queries as query
+from . import misc_funcs as func
+from . import select_best
+
+# query = __import__("queries")
+# func = __import__("misc_funcs")
+# select_best = __import__("select_best")
 
 
 def execute_query(cursor, str_q):
