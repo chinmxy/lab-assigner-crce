@@ -51,6 +51,7 @@ def my_form_post():
 
     # print(data_pass)
     data_pass = allotment_options.getFinalOp(data_pass)
+    # print(data_pass)
 # opdata1 = jsonify(list(opdata))
     return render_template('result.html', data=data_pass)
 

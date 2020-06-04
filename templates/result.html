@@ -22,7 +22,8 @@
     <div class="container-fluid">
         <div class="jumbotron">
             <h1 class="display-4">Lab Combinations</h1>
-            <p class="lead">Here are the available labs as per your needs.</p>
+            {%set display_text = data['title_msg'][0]%}
+            <p class="lead">{{display_text}}</p>
             <!-- <p>{{data}}</p> -->
             <hr class="my-4">
             <div>

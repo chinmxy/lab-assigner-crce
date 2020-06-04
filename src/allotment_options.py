@@ -59,12 +59,14 @@ def make_comb_list(possible_combs, labs_with_sw):
 
 
 def schedule_labs(data):
+    title_msg = []
     if data['sw'] != []:
         execute_query(cursor, query.get_sw_cap(data['sw']))
         labs_with_sw = cursor.fetchall()
         if labs_with_sw != []:
             if func.get_total_cap(labs_with_sw) >= data['acc']:
                 print("LABS HAVE SOFTWARE SHOULD BE USED:")
+                title_msg.append("LABS HAVE SOFTWARE SHOULD BE USED:")
 
                 ''' I've made changes starting here'''
                 comb_list = func.get_combinations(data['acc'], labs_with_sw)
@@ -88,11 +90,14 @@ def schedule_labs(data):
                         final_comb_list = make_comb_list(
                             possible_combs, labs_with_sw)
                         print("LIST1 W SW  LIST2 W/O SW", "FREE LABS")
+                        # title_msg.append("LIST1 W SW  LIST2 W/O SW", "FREE LABS")
                     else:
                         final_comb_list = get_appr_comb(data['acc'] - func.get_total_cap(
                             labs_with_sw) - func.get_total_cap(flabs_wo_sw), [labs_with_sw, flabs_wo_sw])
                         print("LIST1 W SW  LIST2 W/O SW",
                               "FREE LABS & UNFREE LABS")
+                        # title_msg.append("LIST1 W SW  LIST2 W/O SW",
+                        #       "FREE LABS & UNFREE LABS")
                 else:
                     final_comb_list = get_appr_comb(
                         data['acc'] - func.get_total_cap(labs_with_sw), [labs_with_sw])
@@ -112,11 +117,15 @@ def schedule_labs(data):
 
                     print(
                         "NO LABS HAVE REQUIRED SOFTWARE, The following are combinations of free labs that can used:", "FREE LABS")
+                    title_msg.append(
+                        "NO LABS HAVE REQUIRED SOFTWARE, The following are combinations of free labs that can used:")
                 else:
                     final_comb_list = get_appr_comb(
                         data['acc'] - func.get_total_cap(flabs), [flabs])
                     print("NO LABS HAVE REQUIRED SOFTWARE, The following are combinations of free labs that can used:",
                           "FREE LABS & UNFREE LABS")
+                    title_msg.append(
+                        "NO LABS HAVE REQUIRED SOFTWARE, The following are combinations of free labs that can used:")
             else:
                 execute_query(cursor, "select * from accom")
                 # final_comb_list = func.get_combinations(
@@ -127,6 +136,8 @@ def schedule_labs(data):
                 for i in comb_list:
                     final_comb_list.append([list(i), []])
                 print(
+                    "NO LABS HAVE SW , Neither are any labs free , you can use the following combintaions:")
+                title_msg.append(
                     "NO LABS HAVE SW , Neither are any labs free , you can use the following combintaions:")
     else:
         execute_query(cursor, query.get_fl_cap(
@@ -141,11 +152,13 @@ def schedule_labs(data):
                     final_comb_list.append([list(i), []])
 
                 print("THE LABS ARE FREE AND CAN BE USED:")
+                title_msg.append("THE LABS ARE FREE AND CAN BE USED:")
 
             else:
                 final_comb_list = get_appr_comb(
                     data['acc'] - func.get_total_cap(flabs), [flabs])
                 print("THERE ARE FREE AND UNFREE LABS:")
+                title_msg.append("THERE ARE FREE AND UNFREE LABS:")
         else:
             execute_query(cursor, "select * from accom")
             # final_comb_list = func.get_combinations(
@@ -155,6 +168,8 @@ def schedule_labs(data):
             for i in comb_list:
                 final_comb_list.append([list(i), []])
             print("NO LABS ARE FREE, THE FOLLOWING LABS CAN BE USED")
+            title_msg.append(
+                "NO LABS ARE FREE, THE FOLLOWING LABS CAN BE USED")
 
     # print(final_comb_list)
     # for i in final_comb_list:
@@ -170,24 +185,27 @@ def schedule_labs(data):
 
         final_app_list.append(app_list)
 
-    return final_app_list
+    return (final_app_list, title_msg)
     # print(final_app_list)
 
 
-# ip = {'c_name': 'ABC', 'date_input': '2020-03-10', 'day': 'Tuesday', 'time_slots': [
-#     'T11_12', 'T12_1'], 'acc': 40, 'av_labs': {}, 'best_opt': {}, 'sw': ['SQL'], 'error_message': ''}
+ip = {'c_name': 'ABC', 'date_input': '2020-03-10', 'day': 'Tuesday', 'time_slots': [
+    'T11_12', 'T12_1'], 'acc': 40, 'av_labs': {}, 'best_opt': {}, 'sw': ['SQL'], 'error_message': ''}
 
-# sl_op = schedule_labs(ip)
+sl_op = schedule_labs(ip)
+print(sl_op)
 # ip['av_labs'] = sl_op
 # print(ip)
 
 # select_best.reschedule_labs(ip)
 
+
 def getFinalOp(input):
     sl_op = schedule_labs(input)
-    input['av_labs'] = sl_op
+    input['av_labs'], title_message = sl_op
     list_of_all_combs = select_best.reschedule_labs(input)
     op = select_best.bestOption2(list_of_all_combs)
     input['displaylabs'] = op
+    input['title_msg'] = title_message
 
     return input
