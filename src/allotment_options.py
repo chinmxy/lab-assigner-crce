@@ -204,6 +204,7 @@ def getFinalOp(input):
     sl_op = schedule_labs(input)
     input['av_labs'], title_message = sl_op
     list_of_all_combs = select_best.reschedule_labs(input)
+    # print('list of all combs', list_of_all_combs)
     op = select_best.bestOption2(list_of_all_combs)
     input['displaylabs'] = op
     input['title_msg'] = title_message

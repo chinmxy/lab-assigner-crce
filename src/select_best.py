@@ -28,6 +28,8 @@ def check_reschedulable(cursor, day, time, acc, labno, software, combn, reschedu
         reschedule_dict['r_dict'][t] = "X"
         reschedule_dict['ans_str'] += labno + " cannot be rescheduled for " + \
             pracs + " at " + time_slots[time[0]] + ". "
+        reschedule_dict['new_list'].append(""+labno + " cannot be rescheduled for " +
+                                           pracs + " at " + time_slots[time[0]] + ". ")
     else:
         flag = 0
         for i in reschedulable:
@@ -36,6 +38,8 @@ def check_reschedulable(cursor, day, time, acc, labno, software, combn, reschedu
                                                "||"+time_slots[time[0]]+"||"+pracs] = i
                 reschedule_dict['ans_str'] += labno + " can be rescheduled for " + \
                     pracs + " at " + time_slots[time[0]] + " in " + i+". "
+                reschedule_dict['new_list'].append(""+labno + " can be rescheduled for " +
+                                                   pracs + " at " + time_slots[time[0]] + " in " + i+". ")
             flag = 1
             break
 
@@ -49,13 +53,19 @@ def check_reschedulable(cursor, day, time, acc, labno, software, combn, reschedu
             reschedule_dict['rescheduled'][n] = p
             reschedule_dict['ans_str'] += labno + " can be rescheduled for " + \
                 pracs + " at " + time_slots[time[0]] + " in " + p+". "
+            reschedule_dict['new_list'].append(""+labno + " can be rescheduled for " +
+                                               pracs + " at " + time_slots[time[0]] + " in " + p+". ")
 
         if flag == 0:
             t = str(labno + "||"+time[0])
             reschedule_dict['r_dict'][t] = "X"
             reschedule_dict['ans_str'] += labno + " cannot be rescheduled for " + \
                 pracs + " at " + time_slots[time[0]] + ".\n"
+            reschedule_dict['new_list'].append(""+labno + " cannot be rescheduled for " +
+                                               pracs + " at " + time_slots[time[0]] + ".\n")
         # print(reschedule_dict['r_dict'],labno)
+
+    # reschedule_dict['new_list'] = ans_str_list
 
     return reschedule_dict
 
@@ -98,6 +108,7 @@ def reschedule_labs(ip):
         reschedule_dict['ans_str'] = ''
         reschedule_dict['r_dict'] = {}
         reschedule_dict['rescheduled'] = {}
+        reschedule_dict['new_list'] = []
         for i in combs:
             execute_query(cursor, queries.gen_timeslot_query(
                 time) + day + " where labno = '"+i+"'")
@@ -114,56 +125,12 @@ def reschedule_labs(ip):
                         cursor, day, t, acc, i, s[1], combs, reschedule_dict, s[0])
         if reschedule_dict['ans_str'] == '':
             reschedule_dict['ans_str'] = "The selected labs are free to use"
+            reschedule_dict['new_list'] = ["The selected labs are free to use"]
 
         someDict = {combKey: reschedule_dict}
         rd_list.append(someDict)
     # print()
     return rd_list
-
-
-# for i in reschedule_labs(ip):
-#     print(i)
-
-
-def bestOption(mainList):
-    leastCancellations = 999
-    leastReschedules = 999
-    bestCombination = []
-    bestCombinationwRS = []
-    for i in mainList:
-        if(leastCancellations == 999):
-            leastCancellations = len(i['r_dict'])
-            bestCombination.append(i)
-        else:
-            if(len(i['r_dict']) < leastCancellations):
-                leastCancellations = len(i['r_dict'])
-                bestCombination.clear()
-                bestCombination.append(i)
-
-            if(len(i['r_dict']) == leastCancellations):
-                # leastCancellations = len(i['r_dict'])
-                # bestCombination.clear()
-                bestCombination.append(i)
-    # print(bestCombination)
-    if (len(bestCombination) > 1):
-        for i in bestCombination:
-            if (leastReschedules == 999):
-                leastReschedules = len(i['rescheduled'])
-                bestCombinationwRS.append(i)
-            else:
-                if(len(i['rescheduled']) < leastReschedules):
-                    leastReschedules = len(i['rescheduled'])
-                    bestCombinationwRS.clear()
-                    bestCombinationwRS.append(i)
-
-                if(len(i['rescheduled']) == leastReschedules):
-                    # leastCancellations = len(i['r_dict'])
-                    # bestCombination.clear()
-                    bestCombinationwRS.append(i)
-        return bestCombinationwRS
-
-    else:
-        return bestCombination
 
 
 def sortRdict(val):
@@ -180,6 +147,7 @@ def sortRescheduled(val):
 
 
 def bestOption2(mainList):
+    # print("BEST OPTION 2", mainList)
 
     mainList.sort(key=sortRdict)
     bestCanOptions = []
@@ -199,4 +167,3 @@ def bestOption2(mainList):
     sortedOptionList = bestCanOptions + remainingOptions
 
     return sortedOptionList
-

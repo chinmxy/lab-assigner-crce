@@ -2,14 +2,6 @@ import calendar
 from datetime import date
 from flask import Flask, request, render_template, jsonify, json
 
-# allotment_options = __import__("allotment_options")
-# select_best = __import__("select_best")
-# queries = __import__("queries")
-# misc_funcs = __import__("misc_funcs")
-
-# display_ob = __import__("display")
-# demo = __import__("demo")
-
 from src import queries
 from src import allotment_options
 from src import demo
@@ -51,8 +43,8 @@ def my_form_post():
 
     # print(data_pass)
     data_pass = allotment_options.getFinalOp(data_pass)
-    # print(data_pass)
-# opdata1 = jsonify(list(opdata))
+    print(data_pass)
+
     return render_template('result.html', data=data_pass)
 
 
