@@ -1,7 +1,6 @@
 import mysql.connector
 from itertools import combinations
 
-# queries = __import__("queries")
 from . import queries
 
 time_slots = {'T845_945': '8:45 - 9:45', 'T945_1045': '9:45 - 10:45', 'T11_12': '11:00 - 12:00', 'T12_1': '12:00 - 13:00',
@@ -63,10 +62,7 @@ def check_reschedulable(cursor, day, time, acc, labno, software, combn, reschedu
                 pracs + " at " + time_slots[time[0]] + ".\n"
             reschedule_dict['new_list'].append(""+labno + " cannot be rescheduled for " +
                                                pracs + " at " + time_slots[time[0]] + ".\n")
-        # print(reschedule_dict['r_dict'],labno)
-
-    # reschedule_dict['new_list'] = ans_str_list
-
+        
     return reschedule_dict
 
 
@@ -129,32 +125,27 @@ def reschedule_labs(ip):
 
         someDict = {combKey: reschedule_dict}
         rd_list.append(someDict)
-    # print()
     return rd_list
 
 
 def sortRdict(val):
     list1 = list(val.values())
     return(len(list1[0]['r_dict']))
-    # return(len(val['r_dict']))
 
 
 def sortRescheduled(val):
     list1 = list(val.values())
     return(len(list1[0]['rescheduled']))
 
-    # return(len(val['rescheduled']))
 
 
 def bestOption2(mainList):
-    # print("BEST OPTION 2", mainList)
 
     mainList.sort(key=sortRdict)
     bestCanOptions = []
     remainingOptions = []
     leastCancellations = len(list(mainList[0].values())[0]['r_dict'])
 
-    # print(leastCancellations)
     for i in range(0, len(mainList)):
         if(len(list(mainList[i].values())[0]['r_dict']) == leastCancellations):
             bestCanOptions.append(mainList[i])

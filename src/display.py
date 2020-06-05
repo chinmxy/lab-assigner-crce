@@ -23,27 +23,20 @@ def displaytt(day, date):
     cursor = conn.cursor()
     cursor.execute('select * from output_table where date_input = "'+date+'"')
     op = cursor.fetchall()
-    # print("\n\nop: ", op)
-    cname = ''
-    rlist = []
+    reschedules_list = []
 
     if (op != []):
         slots = op[0][4].split(" | ")
-        # print("\n\nslots: ", slots)
         cursor.execute(
             'select * from lab_allocations where id = "'+str(op[0][0])+'"')
         resc_op = cursor.fetchall()
-        # print("\n\nresc_op: ", resc_op)
         lab = op[0][5].split(" | ")
-        # print("\n\nlab:", lab)
         cname = op[0][2]
-        # print("\n\ncname:", cname)
 
         mk_query = "select * from "
         mk_query += day
         cursor.execute(mk_query)
         data = cursor.fetchall()
-        # print("\n\ndata: ", data)
 
         ndata = []
         for i in data:
@@ -51,27 +44,22 @@ def displaytt(day, date):
             for j in i:
                 line.append(j)
             ndata.append(line)
-        # print("\n\nndata: ", ndata)
 
         cancellations = []
 
         for i in slots:
             for k in resc_op:
-                # print("first")
-                # print("\n\nk[3]: ", k[3])
-                # print("\n\ni: ", i)
-                if k[3] == time_slots[i]:
-                    # print("second")
+                if k[3] == i:
                     if k[2] != 'X':
 
                         ndata[labs.index(k[2])][times.index(
                             get_key(k[3]))+1] = ndata[labs.index(k[1])][times.index(get_key(k[3]))+1].split("/")[0]
-                        rlist.append(ndata[labs.index(k[1])]
+                        reschedules_list.append(ndata[labs.index(k[1])]
                                      [times.index(get_key(k[3]))+1].split("/")[0])
 
                     else:
                         cancellations.append("The practical needs to be cancelled at "+time_slots[i]+" for "+ndata[labs.index(
-                            k[1])][times.index(k[3])+1].split("/")[0]+" for "+k[1])
+                            k[1])][times.index(k[3])+1].split("/")[0]+" in lab "+k[1])
 
         for i in lab:
             for j in slots:
@@ -88,6 +76,6 @@ def displaytt(day, date):
     final_op.append(ndata)
     final_op.append(cancellations)
     final_op.append(cname)
-    final_op.append(rlist)
+    final_op.append(reschedules_list)
 
     return final_op

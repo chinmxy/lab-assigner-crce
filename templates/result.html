@@ -96,7 +96,7 @@
                         {% set list1 = data['displaylabs'][i].items() | list %}
                         {% set dict1 = list1[0]|list | list %}
                       <h5 class="card-title">{{dict1[0]}}</h5>
-                      <p class="card-text">{{dict1[1]['ans_str']}}</p>
+                      <p class="card-text"><ul>{%for i in dict1[1]['new_list']%}<li>{{i}}</li>{% endfor %}</ul></p>
                       <a href="javascript:btnClick({{dict1}})" rel="{{i}}" class="btn btn-primary">Select</a>
                     </div>
                   </div>

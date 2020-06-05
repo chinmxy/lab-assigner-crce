@@ -119,7 +119,6 @@ def reschedule_labs(day, time, acc, combs):
         d_count += j
     r_count = {}
     r_count[str(combs)] = d_count
-    # print(r_count,len(reschedule_dict['r_dict']))
     reschedule_dict['r_count'] = r_count[str(combs)]
 
     return reschedule_dict
@@ -143,20 +142,6 @@ def displaytest(data):
     sql += str(data)
     cursor.execute(sql)
     data = cursor.fetchall()
-    print("data: ", data)
-    '''
-    retstring = "<table><tr><th>Lab No.</th><th>Assigned Lab</th><th>Time Slot</th></tr>"
-    sample = "<tr><td>d1</td><td>d2</td><td>d3</td></tr>"
-
-    for i in data:
-        print(i[1], i[2], i[3])
-        sample = sample.replace("d1", i[1])
-        sample = sample.replace("d2", i[2])
-        sample = sample.replace("d3", i[3])
-        retstring += sample
-        sample = "<tr><td>d1</td><td>d2</td><td>d3</td></tr>"
-    retstring += "</table>"
-    '''
     string_list = []
 
     if data == []:
@@ -173,7 +158,6 @@ def displaytest(data):
                     " was cancelled at "+time_slots[i[3]]+"."
                 string_list.append(retstring)
 
-    # print(string_list)
     return string_list
 
 
@@ -198,17 +182,6 @@ def select_best(av_labs, day, time, acc):
                     print(best_opt, "POPPED")
             best_opt.append(i)
             print(best_opt, "APPENDED")
-    # print(min,m_cancels)
-            # if len(best_opt) != 0 and r_dict['r_count'] != min:
-            #     best_opt.pop()
-            #     min = r_dict['r_count']
-            #     m_cancels = len(r_dict['r_dict'])
-            #     best_opt.append(i)
-            # elif len(best_opt) != 0 and r_dict['r_count'] == min and len(r_dict['r_dict']) < m_cancels:
-            #     best_opt.append(i)
-            #     m_cancels = len(r_dict['r_dict'])
-            # elif len(best_opt) == 0:
-            #     best_opt.append(i)
     return best_opt
 
 

@@ -78,8 +78,6 @@ def db_update(current_option, full_data):
     acc = str(full_data['acc'])
     time = full_data['time_slots']
     comb_str = current_option[0]
-    # print(type(comb_str))
-
     # creating time string
     time_str = ''
     for i in range(len(time)):
@@ -88,17 +86,14 @@ def db_update(current_option, full_data):
         else:
             time_str += str(time[i])
 
-    # print(time_str)
 
     op_msg = "Some error occurred, could not update successfully!"
 
     conn = mysql.connector.connect(
         host='localhost', user='root', passwd='', db='it_dept')
     cursor = conn.cursor()
-    # selects max ID from table
     cursor.execute('select max(id) from output_table')
     last_id_no = str(cursor.fetchall()[0][0])
-    # print(eg)
     if (last_id_no == 'None'):
         cursor.execute('insert into output_table (id, date_input, c_name, accomo,combn,time_slots) values (1,"' +
                        date_input+'","'+c_name+'","'+acc+'","'+comb_str+'","'+time_str+'")')
@@ -113,7 +108,6 @@ def db_update(current_option, full_data):
             cursor.execute(
                 'insert into lab_allocations values ("1","'+lnt[0]+'","'+j+'","'+lnt[2]+'")')
             conn.commit()
-            # return ("Updated successfully!")
         op_msg = "Updated successfully!"
     else:
         current_id_no = int(last_id_no) + 1
@@ -132,8 +126,3 @@ def db_update(current_option, full_data):
             conn.commit()
         op_msg = "Updated successfully!"
     return op_msg
-
-
-# Queries to test
-# TRUNCATE TABLE output_table;
-# TRUNCATE TABLE lab_allocations;
